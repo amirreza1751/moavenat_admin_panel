@@ -21,25 +21,8 @@ class APIProjectController extends Controller
      */
     public function index()
     {
-//        $result = array();
-//        $projects = project::all();
-//        foreach ($projects as $project){
-//            $costs=$project->costs;
-//            $test = compact($costs, $project);
-//            array_push($result, $test);
-//        }
-//
-//        return response()->json($result);
         $projects = project::all();
-//        $projects = project::has('costs')->with('costs')->first();
-//
-//        for ($i = 0; $i < sizeof($projects); $i++){
-//            echo $projects[$i]['name'];
-//        }
-
-
         return $projects;
-
     }
     public function index_cost(Request $request)
     {
@@ -56,10 +39,6 @@ class APIProjectController extends Controller
      */
     public function store(Request $request)
     {
-//        $staffs = $request['staffs']->all();
-//        $costs = $request['costs']->all();
-//
-//        $request = $request->all();
 
         $project = Project::create([
             'name' => $request['name'],
@@ -82,20 +61,6 @@ class APIProjectController extends Controller
             'manager_sign' => $request['manager_sign'],
             'expert_sign' => $request['expert_sign'],
         ]);
-//        for ($i = 1; $i < sizeof($request); $i++){
-//            cost::create([
-//                'subject' => $request[$i]['subject'],
-//                'unit' => $request[$i]['unit'],
-//                'cost' => $request[$i]['cost'],
-//                'requested_cost' => $request[$i]['requested_cost'],
-//                'approved_cost' => $request[$i]['approved_cost'],
-//                'project_id' => $project->id,
-//            ]);
-//        }
-//        $request = $request->toArray();
-//        return $request->all();
-//        return $request['project']->all();
-//        return response()->json('"a" : {\"project\" : [{\"name\":\"anjoman SE\", \"manager\":\"mamad\", \"number\":\"09121260587\", \"college_id\":\"1\"}, {\"name\":\"anjoman SE\", \"manager\":\"mamad\", \"number\":\"09121260587\", \"college_id\":\"1\"}]}',  200);
 
         return redirect('/api/projects');
     }

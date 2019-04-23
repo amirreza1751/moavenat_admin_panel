@@ -27,7 +27,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-7">
 
 
             <div class="card">
@@ -36,7 +36,9 @@
                     <div class="float-left"><a href="{{url('/projects')}}"> بازگشت </a> </div>
                 </div>
                 <div class="card-body">
-
+                    @foreach ($errors->all() as $message)
+                        <p  class="text-right alert alert-danger">{{ $message }}</p>
+                    @endforeach
 
                     <form method="POST" action="/projects/judgement/{{ $project->id }}">
                         @csrf
@@ -296,7 +298,7 @@
                             </tr>
                             <tr class="bg-primary3">
                                 <td><b>گواهی معاونت [حضور] (شهودی)</b></td>
-                                <td><input type="text" name="govahiMoavenat2[coefficient]" id="txt77" readonly  value="1" class="form-control text-center" placeholder=""></td>
+                                <td><input type="text" name="govahiMoavenat2[coefficient]" id="txt77" readonly required  value="1" class="form-control text-center" placeholder=""></td>
                                 <td><input type="number" name="govahiMoavenat2[sub_score]" step="0.01"  id="txt78" class="form-control text-center" min="0" value="0" placeholder=""></td>
                             </tr>
                             <tr class="bg-primary3">
@@ -336,7 +338,7 @@
 
 
                         <div class="form-group row mb-1">
-                            <div class="col-md-6 offset-md-3">
+                            <div class="col-md-8 offset-md-1">
                         <span id="button1" class=" btn btn-info btn-block">محاسبه‌ی نمرات</span>
                             </div>
                         </div>
@@ -344,8 +346,8 @@
 
 
                         <div class="form-group row mb-1">
-                            <div class="col-md-6 offset-md-3">
-                                <button  type="submit" class="btn btn-primary btn-block">
+                            <div class="col-md-8 offset-md-1">
+                                <button  type="submit" class="btn btn-blue btn-block">
                                     {{ __('ثبت داوری') }}
                                 </button>
                             </div>

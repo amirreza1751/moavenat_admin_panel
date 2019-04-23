@@ -84,14 +84,19 @@
     {{--{{ $project->id }}--}}
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-right">ثبت هزینه های طرح</div>
 
                     <div class="card-body">
+
+                        @if(Session::has('message'))
+                            <p class="text-right alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                        @endif
+
                         <div class="pb-2 text-right">
-                            <button type="button" class="remove_field btn btn-info rounded-circle">-</button>
-                            <button type="button" class="add_field_button btn btn-primary rounded-circle">+</button>
+                            <button type="button" class="remove_field btn btn-info btn-rounded btn-sm">-</button>
+                            <button type="button" class="add_field_button btn btn-primary btn-rounded btn-sm">+</button>
                         </div>
                         <form method="POST" action="/projects/costs/new">
                             @csrf
@@ -145,8 +150,8 @@
 
 
                             <div class="form-group row mb-1">
-                                <div class="col-md-6 offset-md-3">
-                                    <button type="submit" class="btn btn-primary btn-block">
+                                <div class="col-md-6 offset-md-2">
+                                    <button type="submit" class="btn btn-blue btn-block">
                                         {{ __('ثبت هزینه ها و ورود به مرحله بعد >>') }}
                                     </button>
                                 </div>

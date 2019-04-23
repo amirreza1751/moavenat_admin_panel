@@ -1,24 +1,37 @@
 @extends('layouts.app')
 
 @section('head')
-    {{--<link rel="stylesheet" href="/bootstrap-jalali-datepicker-master/demo/css/bootstrap.min.css" />--}}
-    {{--<link rel="stylesheet" href="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.css" />--}}
-    {{--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>--}}
-    {{--<script src="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.js"></script>--}}
-    {{--<script src="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.fa.js"></script>--}}
-    {{--<script>--}}
-    {{--$(document).ready(function() {--}}
 
-    {{--$("#datepicker4").datepicker({--}}
-    {{--changeMonth: true,--}}
-    {{--changeYear: true--}}
-    {{--});--}}
+    <link rel="stylesheet" href="{{asset('datepicker/bootstrap-datepicker.min.css')}}">
 
-    {{--});--}}
-    {{--</script>--}}
+
+
+    {{--timepicker--}}
+    <link rel="stylesheet" href="{{asset('timepicker/stylesheets/wickedpicker.css')}}">
+
+    <script>
+        $(document).ready(function () {
+            var twelveHour = $('.timepicker-12-hr').wickedpicker();
+            $('.time').text('//JS Console: ' + twelveHour.wickedpicker('time'));
+            $('.timepicker-24-hr').wickedpicker({twentyFour: true});
+            $('.timepicker-12-hr-clearable').wickedpicker({clearable: true});
+        });
+    </script>
+    <script type="text/javascript" src="{{asset('timepicker/src/wickedpicker.js')}}"></script>
+
 @endsection
 
 @section('content')
+
+    <?php
+        $str = explode("-", $project->start_date);
+            $start_date = $str[2] . "/" . $str[1] . "/" . $str[0];
+        $str = explode("-", $project->end_date);
+        $end_date = $str[2] . "/" . $str[1] . "/" . $str[0];
+    ?>
+
+
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -26,12 +39,19 @@
 
                 <div class="card">
                     <div class="card-header text-right">
-                        <div class="float-right">مشاهده و ویرایش طرح</div>
+                        <div class="float-right">
+
+                            مشاهده و ویرایش طرح
+
+                        </div>
                         <div class="float-left"><a href="{{url('/projects')}}"> بازگشت </a> </div>
                     </div>
                     <div class="card-body">
-                        {{--<form method="POST" action="/projects/new">--}}
-                        {{--@csrf--}}
+                        @if(Session::has('message'))
+                            <p  class="text-right alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                        @endif
+                        <form method="POST" action="/projects/edit/{{$project->id}}">
+                            @csrf
 
                         <table class="table table-bordered table-hover text-center" dir="rtl">
                         <thead>
@@ -49,8 +69,13 @@
                         <tr>
                         <td scope="row">انجمن برگزار کننده:</td>
                         <td colspan="1">
-                        <select name="forum_name" id="" class="custom-select">
-                        <option selected  value="{{$project->forum->name}}">{{$project->forum->name}}</option>
+                        <select name="forum_id" id="" class="custom-select">
+                        <option selected  value="{{$project->forum->id}}">{{$project->forum->name}}</option>
+                            @foreach($forums as $forum)
+                                @if($forum->id != $project->forum->id)
+                                    <option value="{{$forum->id}}"> {{$forum->name}}</option>
+                                @endif
+                            @endforeach
                         </select>
                         </td>
                         <td colspan="1">مکان برگزاری:</td>
@@ -59,29 +84,34 @@
 
                         <tr>
                         <td scope="row">تاریخ شروع:</td>
-                        <td colspan="1"><input type="text" placeholder="روز/ماه/سال"  name="start_date" class="form-control"  value="{{$project->start_date}}"></td>
+                        <td colspan="1"><input type="text" id="az" placeholder="روز/ماه/سال"  name="start_date" class="form-control"  value="{{$start_date}}"></td>
                         <td >ساعت شروع:</td>
-                        <td colspan="2"><input type="text" placeholder="دقیقه:ساعت" name="start_time" class="form-control"  value="{{$project->start_time}}"></td>
+                        <td colspan="2"><input dir="ltr" class="timepicker-24-hr hasWickedpicker form-control" onkeypress="return false;" aria-showingpicker="true" type="text" placeholder="دقیقه:ساعت" name="start_time"  value="{{$project->start_time}}"></td>
                         </tr>
                         <tr>
                         <td scope="row">تاریخ پایان:</td>
-                        <td colspan="1"><input type="text" placeholder="روز/ماه/سال" name="end_date" class="form-control"  value="{{$project->end_date}}"></td>
+                        <td colspan="1"><input type="text" id="ta" placeholder="روز/ماه/سال" name="end_date" class="form-control"  value="{{$end_date}}"></td>
                         <td>ساعت پایان:</td>
-                        <td colspan="2"><input type="text" placeholder="دقیقه:ساعت" name="end_time" class="form-control"  value="{{$project->end_time}}"></td>
+                        <td colspan="2"><input dir="ltr" class="timepicker-24-hr hasWickedpicker form-control" onkeypress="return false;" aria-showingpicker="true" type="text" placeholder="دقیقه:ساعت" name="end_time"  value="{{$project->end_time}}"></td>
                         </tr>
 
                         <tr>
                         <td scope="row" width="15%">نوع طرح</td>
                         <td>
                         <select name="type" id="" class="custom-select">
-                        <option selected value="ترویجی">ترویجی</option>
+                        <option selected value="ترویجی">{{$project->type}}</option>
+                            @foreach($project_types as $project_type)
+                                @if($project_type != $project->type)
+                                    <option value="{{$project_type}}">{{$project_type}}</option>
+                                @endif
+                            @endforeach
                         </select>
                         </td>
 
                         <td >سطح برگزاری</td>
                         <td >
                         <select name="level" id="" class="custom-select">
-                        <option selected  value="">{{$project->level}}</option>
+                        <option selected  value="{{$project->level}}">{{$project->level}}</option>
                         </select>
                         </td>
                         </tr>
@@ -139,18 +169,40 @@
 
                         </tbody>
                         </table>
+                            <div class="form-group row mb-1">
+                                <div class="col-md-6 offset-md-2">
+                                    <button type="submit" class="btn btn-blue btn-block">
+                                        {{ __('ویرایش طرح') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
 
-                        {{--<div class="form-group row mb-1">--}}
-                        {{--<div class="col-md-6 offset-md-3">--}}
-                        {{--<button type="submit" class="btn btn-primary btn-block">--}}
-                        {{--{{ __('ثبت طرح و ورود به مرحله بعد >>') }}--}}
-                        {{--</button>--}}
-                        {{--</div>--}}
-                        {{--</div>--}}
-                        {{--</form>--}}
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+    <script src="{{asset('datepicker/bootstrap-datepicker.min.js')}}"></script>
+    <script src="{{asset('datepicker/bootstrap-datepicker.fa.min.js')}}"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            $("#az").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+
+            $("#ta").datepicker({
+                changeMonth: true,
+                changeYear: true
+            });
+
+        });
+    </script>
 @endsection

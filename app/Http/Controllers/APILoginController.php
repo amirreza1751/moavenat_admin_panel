@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Role;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -41,10 +43,11 @@ class APILoginController extends Controller
             if (Hash::check($password, $user->password)) {
                 $role = $user->app_role;
 
+                $oauth_client = DB::table('oauth_clients')->where('password_client', 1)->first();
                 $request->request->add([
                     'grant_type' => 'password',
-                    'client_id' => 1,
-                    'client_secret' => "6QyMk91e5FlkpOkHz9vdsWi2GCN3Vlj3ic8nEYUQ",
+                    'client_id' => $oauth_client->id,
+                    'client_secret' => $oauth_client->secret,
                     'scope' => '*',
                 ]);
                 $tokenRequest = Request::create(
@@ -53,7 +56,9 @@ class APILoginController extends Controller
                 );
                 return Route::dispatch($tokenRequest);
 
-
+//                $temp = Route::dispatch($tokenRequest);
+//                return $temp->expires_in;
+//                return Carbon::parse($temp->expires_in)->toDateTimeString();
             } else {
                 //type = 2 => incorrect passowrd
                 return [

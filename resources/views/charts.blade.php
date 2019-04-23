@@ -1,63 +1,89 @@
 @extends('layouts.app')
 
 @section('head')
-    {{--<link rel="stylesheet" href="/bootstrap-jalali-datepicker-master/demo/css/bootstrap.min.css" />--}}
-    {{--<link rel="stylesheet" href="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.css" />--}}
-    {{--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>--}}
-    {{--<script src="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.js"></script>--}}
-    {{--<script src="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.fa.js"></script>--}}
-    {{--<script>--}}
-        {{--$(document).ready(function() {--}}
 
-            {{--$("#datepicker4").datepicker({--}}
-                {{--changeMonth: true,--}}
-                {{--changeYear: true--}}
-            {{--});--}}
-
-        {{--});--}}
-    {{--</script>--}}
 @endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header text-right">
-                    <div class="float-right">پنل ادمین</div>
-                    <div class="float-left"><a href="{{url('/projects')}}"> بازگشت </a> </div>
-                </div>
-                <div class="card-body">
-                    <h1 class="text-right">نمودار‌ها</h1>
-                    <div id="piechart"></div>
+    <div class="container-fluid">
 
-                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <!-- Heading -->
+        <div class="card mb-4 wow fadeIn">
 
-                    <script type="text/javascript">
-                        // Load google charts
-                        google.charts.load('current', {'packages':['corechart']});
-                        google.charts.setOnLoadCallback(drawChart);
+            <!--Card content-->
+            <div class="card-body d-sm-flex justify-content-between">
 
-                        // Draw the chart and set the chart values
-                        function drawChart() {
-                            var data = google.visualization.arrayToDataTable([
-                                ['Task', 'Hours per Day'],
-                                ['آموزشی', {{$counter['amuzeshi']}}],
-                                ['ترویجی', {{$counter['tarviji']}}],
-                            ]);
+                <form class="d-flex justify-content-center">
+                    <!-- Default input -->
+                    <button class="btn btn-primary btn-sm my-0 p" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <input type="search" placeholder="جسنجو کنید" aria-label="Search" class="form-control"
+                           style="direction: rtl">
 
-                            // Optional; add a title and set the width and height of the chart
-                            var options = {'title':'فراوانی طرح‌ها', 'width':550, 'height':400};
+                </form>
 
-                            // Display the chart inside the <div> element with id="piechart"
-                            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-                            chart.draw(data, options);
-                        }
-                    </script>
+                <h4 class="mb-2 mb-sm-0 pt-1">
+                    <a href="{{ url('/home') }}">خانه</a>
+                    <span>/</span>
+                    <span>اضافه کردن دانشکده</span>
+                </h4>
 
-                </div>
             </div>
+
         </div>
+        <!-- Heading -->
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-6 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header">نمودار مجموع هزینه های دریافتی انجمن ها</div>
+
+                    <!--Card content-->
+                    <div class="card-body">
+
+                        <canvas id="barChart"></canvas>
+
+                    </div>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-6 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header">نمودار دایره ای فراوانی نوع طرح ها</div>
+
+                    <!--Card content-->
+                    <div class="card-body">
+
+                        <canvas id="pieChart"></canvas>
+
+                    </div>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+
     </div>
-</div>
 @endsection

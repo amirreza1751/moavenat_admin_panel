@@ -22,6 +22,12 @@
                 height: 100vh;
                 margin: 0;
             }
+            body{
+                background-image: url('images/1-small.jpg');
+                background-size: cover;
+                background-position-y: -200px;
+                background-repeat: no-repeat;
+            }
 
             .full-height {
                 height: 100vh;
@@ -39,8 +45,13 @@
 
             .top-right {
                 position: absolute;
-                right: 10px;
-                top: 18px;
+                right: 0;
+                top: 0;
+                width: 100%;
+                height: 50px;
+                color: #000;
+                background-color: rgba(255,255,255,0.6);
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
 
             .content {
@@ -48,22 +59,37 @@
             }
 
             .title {
-                font-size: 40px;
+                font-size: 25px;
             }
 
             .links > a {
                 color: #636b6f;
                 padding: 0 25px;
+                float: right;
+                height: 100%;
                 font-size: 17px;
                 font-weight: 600;
+                line-height: 40px;
                 /*letter-spacing: .1rem;*/
                 text-decoration: none;
                 text-transform: uppercase;
+                -webkit-transition: background-color 1s;
+                -moz-transition: background-color 1s;
+                -ms-transition: background-color 1s;
+                -o-transition: background-color 1s;
+                transition: background-color 1s;
+            }
+            .links > a:hover {
+                background-color: rgba(255,255,255,0.8);
             }
 
             .m-b-md {
                 margin-bottom: 30px;
-                padding: 50px!important;
+                padding: 30px!important;
+                color: #000;
+                border-radius: 3px;
+                background-color: rgba(255,255,255,0.6);
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
         </style>
     </head>
@@ -75,7 +101,7 @@
                         <a href="{{ url('/home') }}">خانه</a>
                     @else
                         <a href="{{ route('login') }}">ورود</a>
-{{--                        <a href="{{ route('register') }}">ثبت‌نام</a>--}}
+                        <a href="{{ route('register') }}">ثبت‌نام</a>
                     @endauth
                 </div>
             @endif

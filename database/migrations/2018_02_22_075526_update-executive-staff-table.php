@@ -15,11 +15,11 @@ class UpdateExecutiveStaffTable extends Migration
     {
         Schema::table('executive_staffs', function (Blueprint $table) {
             $table -> string('fname');
-            $table -> string('lname');
+//            $table -> string('lname');
             $table -> string('student_id');
             $table -> string('phone_number');
             $table -> string('field');
-            $table -> string('votes');
+            $table -> string('votes')->nullable();
             $table->softDeletes();
         });
     }

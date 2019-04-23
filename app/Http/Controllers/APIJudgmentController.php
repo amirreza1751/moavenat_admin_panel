@@ -163,8 +163,9 @@ class APIJudgmentController extends Controller
         $ref_name = $request['ref_name'];
         $st_name = $request['st_name'];
         $ref_id = User::where('name', $ref_name)->first()->id;
-        $scores = standard::with('subScore')->with('subScore.subScoreL2')->where('project_id', $proj_id)->where('user_id', $ref_id)->where('st_name', $st_name)->get();
-        return $scores;
+        $scores = standard::with('subScore')->with('subScore.subScoreL2')->where('project_id', $proj_id)->where('user_id', $ref_id)->where('st_name', $st_name)->where('is_final_judgment', null)->get();
+//        $scores = standard::where('project_id', $proj_id)->where('user_id', $ref_id)->where('st_name', $st_name)->subScore()->subScoreL2()->where('is_final_judgment', null)->get();
+        return response()->json($scores);
     }
 
 

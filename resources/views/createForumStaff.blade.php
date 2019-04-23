@@ -24,7 +24,7 @@
                     $("#number_of_inputs").val(x);
                     $(wrapper).append('                      <div id="row'+x+'" class="form-group row" dir="rtl">\n' +
                         '                                    <p class="col-form-label pr-3 text-md-center "  >ردیف: '+x+'</p>\n' +
-                        '                                    <label for="name" class="pr-3  col-form-label text-md-left ">نام و نام خانوادگی</label>\n' +
+                        '                                    <label for="name" class="pr-3  col-form-label text-md-left ">نام</label>\n' +
                         '\n' +
                         '                                    <div class=" col-md-2">\n' +
                         '                                        <input id="name" name="name'+x+'" type="text" class="form-control" required autofocus>\n' +
@@ -40,21 +40,21 @@
                         '\n' +
                         '                                    </div>\n' +
                         '\n' +
-                        '                                    <label for="name" class=" pr-3 col-form-label text-md-left">شماره تلفن</label>\n' +
+                        '                                    <label for="name" class=" pr-3 col-form-label text-md-left">تلفن</label>\n' +
                         '\n' +
                         '                                    <div class=" col-md-1 ">\n' +
                         '                                        <input id="name" name="phone_number'+x+'" type="text" class="form-control" required autofocus>\n' +
                         '\n' +
                         '                                    </div>\n' +
                         '\n' +
-                        '                                    <label for="name" class=" pr-3  col-form-label text-md-left">رشته تحصیلی</label>\n' +
+                        '                                    <label for="name" class=" pr-3  col-form-label text-md-left">رشته </label>\n' +
                         '\n' +
                         '                                    <div class=" col-md-1 ">\n' +
                         '                                        <input id="name" name="field'+x+'" type="text" class="form-control" required autofocus>\n' +
                         '\n' +
                         '                                    </div>\n' +
                         '\n' +
-                        '                                    <label for="name" class=" pr-3  col-form-label text-md-left">سمت در انجمن</label>\n' +
+                        '                                    <label for="name" class=" pr-3  col-form-label text-md-left">سمت </label>\n' +
                         '\n' +
                         '                                    <div class=" col-md-1 ">\n' +
                         '                                        <input id="name" name="post'+x+'" type="text" class="form-control" required autofocus>\n' +
@@ -83,15 +83,18 @@
     {{--{{ $project->id }}--}}
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
 
                 <div class="card">
                     <div class="card-header text-right">اضافه کردن افراد به انجمن</div>
 
                     <div class="card-body">
+                        @if(Session::has('message'))
+                            <p  class="text-right alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                        @endif
                         <div class="pb-2 text-right">
-                            <button type="button" class="remove_field btn btn-info rounded-circle">-</button>
-                            <button type="button" class="add_field_button btn btn-primary rounded-circle">+</button>
+                            <button type="button" class="remove_field btn btn-info btn-rounded btn-sm">-</button>
+                            <button type="button" class="add_field_button btn btn-primary btn-rounded btn-sm">+</button>
                         </div>
                         <form method="POST" action="/forums/staffs/new">
                             @csrf
@@ -100,7 +103,7 @@
                             <div id="items">
                                 <div id="to_add" class="form-group row" dir="rtl">
                                     <p class="col-form-label pr-3 text-md-center "  >ردیف: 1</p>
-                                    <label for="name" class="pr-3  col-form-label text-md-left ">نام و نام خانوادگی</label>
+                                    <label for="name" class="pr-3  col-form-label text-md-left ">نام</label>
 
                                     <div class=" col-md-2">
                                         <input id="name" name="name1" type="text" class="form-control" required autofocus>
@@ -116,21 +119,21 @@
 
                                     </div>
 
-                                    <label for="name" class=" pr-3 col-form-label text-md-left">شماره تلفن</label>
+                                    <label for="name" class=" pr-3 col-form-label text-md-left"> تلفن</label>
 
                                     <div class=" col-md-1 ">
                                         <input id="name" name="phone_number1" type="text" class="form-control" required autofocus>
 
                                     </div>
 
-                                    <label for="name" class=" pr-3  col-form-label text-md-left">رشته تحصیلی</label>
+                                    <label for="name" class=" pr-3  col-form-label text-md-left">رشته </label>
 
                                     <div class=" col-md-1 ">
                                         <input id="name" name="field1" type="text" class="form-control" required autofocus>
 
                                     </div>
 
-                                    <label for="name" class=" pr-3  col-form-label text-md-left">سمت در انجمن</label>
+                                    <label for="name" class=" pr-3  col-form-label text-md-left">سمت </label>
 
                                     <div class=" col-md-1 ">
                                         <input id="name" name="post1" type="text" class="form-control" required autofocus>
@@ -149,8 +152,8 @@
 
 
                             <div class="form-group row mb-1">
-                                <div class="col-md-6 offset-md-3">
-                                    <button type="submit" class="btn btn-primary btn-block">
+                                <div class="col-md-6 offset-md-2">
+                                    <button type="submit" class="btn btn-blue btn-block">
                                         {{ __('ثبت نام افراد و ورود به مرحله بعد >>') }}
                                     </button>
                                 </div>

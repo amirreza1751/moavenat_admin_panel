@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role_id', 'lname', 'student_number'
+        'name', 'email', 'password', 'lname', 'student_number'
     ];
 
     /**
@@ -34,5 +36,13 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo('App\Role');
+    }
+
+    /**
+     * defer to the Spatie package for role scope
+     */
+    public function scopeHasRoles(\Illuminate\Database\Eloquent\Builder $query, $roles)
+    {
+        return $this->scopeRole($query, $roles);
     }
 }

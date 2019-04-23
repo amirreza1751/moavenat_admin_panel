@@ -17,7 +17,6 @@ class UpdateForumIDExecutiveStaffTable extends Migration
             $table -> string('forum_post')->nullable();
             $table->integer('forum_id')->unsigned()->nullable();
             $table->foreign('forum_id')->references('id')->on('forums')->onDelete('restrict')->onUpdate('cascade');
-         
         });
     }
 

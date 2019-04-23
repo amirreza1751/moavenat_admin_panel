@@ -27,17 +27,18 @@ class HomeController extends Controller
     public function index()
     {
 //        $projects = project::where('name', 'عنوان طرح')->first();
-        $role =  Auth::user()->role()->first()->name;
-        if ($role == "دبیر کمیته علمی"){
+//        $role =  Auth::user()->role()->first()->name;
+//        if ($role == "دبیر کمیته علمی"){
+//
             return view('home');
-        }
-        if ($role == "کاربر"){
-            return view('staffHome');
-        }
-        else if ($role == "داور") {
-            return view('refereeHome');
-
-        }
+//        }
+//        if ($role == "کاربر"){
+//            return view('staffHome');
+//        }
+//        else if ($role == "داور") {
+//            return view('refereeHome');
+//
+//        }
 
 
     }

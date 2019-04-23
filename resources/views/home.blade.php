@@ -1,69 +1,83 @@
 @extends('layouts.app')
 
 @section('head')
-    {{--<link rel="stylesheet" href="/bootstrap-jalali-datepicker-master/demo/css/bootstrap.min.css" />--}}
-    {{--<link rel="stylesheet" href="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.css" />--}}
-    {{--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>--}}
-    {{--<script src="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.js"></script>--}}
-    {{--<script src="/bootstrap-jalali-datepicker-master/bootstrap-datepicker.fa.js"></script>--}}
-    {{--<script>--}}
-        {{--$(document).ready(function() {--}}
 
-            {{--$("#datepicker4").datepicker({--}}
-                {{--changeMonth: true,--}}
-                {{--changeYear: true--}}
-            {{--});--}}
-
-        {{--});--}}
-    {{--</script>--}}
 @endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            {{--<div class="card">--}}
-                {{--<div class="card-header text-right">اضافه کردن طرح</div>--}}
+    <div class="container-fluid">
 
-                {{--<div class="card-body text-right">--}}
-                    {{--@if (session('status'))--}}
-                        {{--<div class="alert alert-success">--}}
-                            {{--{{ session('status') }}--}}
-                        {{--</div>--}}
-                    {{--@endif--}}
+        <!-- Heading -->
+        <div class="card mb-4 wow fadeIn">
 
-                    {{--طرح اضافه کنید.--}}
-                    {{--{{$projects->name}}--}}
+            <!--Card content-->
+            <div class="card-body d-sm-flex justify-content-between">
 
-                {{--</div>--}}
-            {{--</div>--}}
 
-            <div class="card">
-                <div class="card-header text-right">{{ __('پنل ادمین') }}</div>
-                <div class="card-body text-right" dir="rtl">
-                    <ul>
-                        <li><a href="{{ url('/colleges/add') }}">اضافه کردن دانشکده</a></li>
-                        <li><a href="{{ url('/colleges') }}">مشاهده‌ی دانشکده‌ها</a></li>
-                        <li><a href="{{ url('/forums/add') }}">اضافه کردن انجمن</a></li>
-                        <li><a href="{{ url('/forums') }}">مشاهده‌ی انجمن‌ها</a></li>
-                        <li><a href="{{ url('/projects/add') }}">اضافه کردن طرح</a></li>
-                        <li><a href="{{ url('/projects') }}">مشاهده‌ی طرح‌های اضافه شده</a></li>
-                    </ul>
 
-                    {{--<form method="POST" action="/projects/add">--}}
-                        {{--@csrf--}}
+                <h4 class="mb-2 mb-sm-0 pt-1 ">
 
-                        {{--<div class="form-group row mb-1">--}}
-                            {{--<div class="col-md-6 offset-md-3">--}}
-                                {{--<button type="submit" class="btn btn-primary btn-block">--}}
-                                    {{--{{ __('ثبت طرح و ورود به مرحله بعد >>') }}--}}
-                                {{--</button>--}}
-                            {{--</div>--}}
-                        {{--</div>--}}
-                    {{--</form>--}}
-                </div>
+                    <span style="float: right">خانه</span>
+                </h4>
+
             </div>
+
         </div>
+        <!-- Heading -->
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-6 mb-4">
+
+                <!--Card-->
+                <div class="card">
+                    @if(Session::has('message'))
+                        <p  class="text-right alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                @endif
+
+                    <!-- Card header -->
+                    <div class="card-header">نمودار مجموع هزینه های دریافتی انجمن ها</div>
+
+                    <!--Card content-->
+                    <div class="card-body">
+
+                        <canvas id="barChart"></canvas>
+
+                    </div>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+
+            <!--Grid column-->
+            <div class="col-lg-6 col-md-6 mb-4">
+
+                <!--Card-->
+                <div class="card">
+
+                    <!-- Card header -->
+                    <div class="card-header">نمودار دایره ای فراوانی نوع طرح ها</div>
+
+                    <!--Card content-->
+                    <div class="card-body">
+
+                        <canvas id="pieChart"></canvas>
+
+                    </div>
+
+                </div>
+                <!--/.Card-->
+
+            </div>
+            <!--Grid column-->
+
+        </div>
+        <!--Grid row-->
+
+
     </div>
-</div>
 @endsection

@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 Route::get('/login', 'API\APILoginController@getToken'); // bayad post beshe!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 /*forums*/
+Route::get('/loadCharts', 'ChartController@loadCharts');
 Route::post('/forums', 'API\APIForumController@index');
 Route::post('/forums/add', 'API\APIForumController@store');
 

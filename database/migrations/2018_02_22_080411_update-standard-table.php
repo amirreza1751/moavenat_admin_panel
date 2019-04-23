@@ -17,6 +17,7 @@ class UpdateStandardTable extends Migration
             $table -> string('st_name');
             $table -> float('final_score')->nullable();
             $table -> float('st_coefficient')->nullable();
+            $table->boolean('is_final_judgment')->nullable();
             $table->softDeletes();
         });
     }

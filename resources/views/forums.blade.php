@@ -26,12 +26,18 @@
                     </div>
                         <?php $i=1; ?>
                     <div class="card-body ">
+
+                        @if(Session::has('message'))
+                            <p  class="text-right alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+                        @endif
+
                         <div class="col-6 offset-3">
                             <table class="table table-bordered  table-responsive-sm" dir="rtl">
                                 <thead class="table-dark">
                                 <tr class="text-center">
                                     <td>ردیف</td>
                                     <td>نام دانشکده</td>
+                                    <td>ویرایش</td>
                                 </tr>
                                 </thead>
 
@@ -40,6 +46,7 @@
                                     <tr class="text-center clickable-row "style="cursor: pointer;" data-href='{{url('/forums')}}{{"/" . $forum->id}}'>
                                         <td>{{$i++}}</td>
                                         <td>{{ $forum->name }}</td>
+                                        <td><a href="/forums/edit/{{$forum->id}}"><i class="far fa-edit" style="font-size: 20pt"></i></a></td>
                                         {{--@if( $role == 'دبیر کمیته علمی') <td>{{ $project->grade}}</td> @endif--}}
                                         {{--@if($role == "داور" || $role == 'دبیر کمیته علمی') <td style="z-index: 10"><a href="/projects/judge/{{ $project->id }}" class="btn btn-primary text-white">داوری طرح</a></td> @endif--}}
                                         {{--@if($role == 'دبیر کمیته علمی') <td style="z-index: 10"><a href="/projects/finalJudge/{{ $project->id }}" class="btn btn-primary text-white">ثبت نهایی</a></td> @endif--}}

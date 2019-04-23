@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\executiveStaff;
 use App\staffProject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class StaffController extends Controller
 {
@@ -33,6 +34,10 @@ class StaffController extends Controller
                 ]);
             }
         }
+
+        Session::flash('message', '.افراد با موفقیت در طرح ثبت شدند');
+        Session::flash('alert-class', 'alert-success');
+
         return view('createCost')->with('project_id', $request['project_id']);
     }
 
@@ -59,6 +64,8 @@ class StaffController extends Controller
                 $staff->save();
             }
         }
+        Session::flash('message', '.افراد با موفقیت در انجمن ثبت شدند');
+        Session::flash('alert-class', 'alert-success');
         return redirect('/forums');
     }
 }
